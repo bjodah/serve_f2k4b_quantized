@@ -3,6 +3,9 @@
 A minimal Python package that serves the **FLUX.2-klein-4B** image-generation
 model through an **OpenAI-compatible REST API** (FastAPI).
 
+> **GENERATIVE AI DISCLAIMER**: The code in this repository was mostly written by LLMs
+> (but with plenty of guidance from yours truly).
+
 It combines:
 * A **Q8_0 GGUF**-quantized Transformer (Unsloth) loaded via Diffusers.
 * An **Int8**-quantized Text Encoder (optimum-quanto).
