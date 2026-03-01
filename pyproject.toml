@@ -1,0 +1,40 @@
+[project]
+name = "serve_f2k4b_quantized"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+    "torchvision",
+    "transformers",
+    "accelerate",
+    "huggingface-hub",
+    "safetensors",
+    "optimum-quanto",
+    "gguf",
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "pyyaml",
+    "diffusers",
+]
+
+[project.optional-dependencies]
+test = ["pytest", "requests", "httpx"]
+
+[project.scripts]
+serve-f2k4b = "serve_f2k4b_quantized.server:main"
+
+[tool.uv.sources]
+diffusers = { git = "https://github.com/huggingface/diffusers" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

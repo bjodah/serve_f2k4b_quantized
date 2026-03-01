@@ -1,0 +1,18 @@
+server:
+  host: "0.0.0.0"
+  port: 8000
+  static_dir: "./static"
+
+model:
+  # Available profiles: mixed-q8-int8
+  profile: "mixed-q8-int8"
+  # Set to "cpu" for CPU-only deployment; "cuda" for GPU.
+  # The server will fall back to CPU automatically if CUDA is unavailable.
+  device: "cuda"
+  # Use "bfloat16" on CUDA, "float32" on CPU.
+  compute_dtype: "bfloat16"
+
+api:
+  # "b64_json" returns a base64-encoded PNG in the JSON body (recommended).
+  # "url"      saves images to static_dir and returns an HTTP URL.
+  default_response_format: "b64_json"
