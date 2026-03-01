@@ -31,3 +31,5 @@ static/
 .vscode/
 *.swp
 *~
+repomix-output.xml
+config.yaml

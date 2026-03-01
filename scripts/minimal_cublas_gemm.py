@@ -27,6 +27,12 @@ def main() -> None:
         print("  If you expected CUDA support, check your driver and PyTorch installation.")
         return
 
+    assert torch.cuda.is_available()
+    print(f"{torch.cuda.get_device_capability(0)=}")
+    print(f"{torch.version.cuda=}")
+    #print(f"{torch.cuda.get_device_properties(0).total_memory=}")
+
+
     device = torch.device("cuda")
     dtype = torch.float16
 
