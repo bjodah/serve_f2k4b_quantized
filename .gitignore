@@ -33,3 +33,4 @@ static/
 *~
 repomix-output.xml
 config.yaml
+*.png

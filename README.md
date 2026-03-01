@@ -145,6 +145,21 @@ OpenAI image generation API format.
 
 ---
 
+## Manually querying the endpoint
+
+```console
+curl -s -X POST http://127.0.0.1:8000/v1/images/generations \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "A futuristic city skyline at sunset in a cyberpunk style",
+    "size": "1024x1024",
+    "num_inference_steps": 20,
+    "response_format": "b64_json"
+  }' | jq -r '.data[0].b64_json' | base64 --decode > generated_image.png
+```
+
+---
+
 ## API Reference
 
 ### `POST /v1/images/generations`

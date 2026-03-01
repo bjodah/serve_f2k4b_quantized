@@ -15,7 +15,7 @@ _DEFAULTS: dict[str, Any] = {
         "static_dir": "./static",
     },
     "model": {
-        "profile": "mixed-q8-int8",
+        "profile": "unsloth-gguf", # Default to GGUF
         "device": "cuda",
         "compute_dtype": "bfloat16",
     },
@@ -24,7 +24,7 @@ _DEFAULTS: dict[str, Any] = {
     },
 }
 
-_VALID_PROFILES = {"mixed-q8-int8", "aydin99-int8", "unsloth-gguf"}
+_VALID_PROFILES = {"unsloth-gguf", "aydin99-int8"}
 _VALID_DEVICES = {"cuda", "cpu"}
 _VALID_DTYPES = {"bfloat16", "float32"}
 _VALID_RESPONSE_FORMATS = {"b64_json", "url"}
