@@ -97,7 +97,7 @@ async def generate_images(request: ImageGenerationRequest):
     global _pipeline, _cfg
 
     logger.info("images/generations prompt_len=%d size=%s steps=%d n=%d fmt=%s",
-                req_id, len(request.prompt), request.size, request.num_inference_steps,
+                len(request.prompt), request.size, request.num_inference_steps,
                 request.n, request.response_format)
 
     response_format = request.response_format or _cfg.get("api", {}).get(
