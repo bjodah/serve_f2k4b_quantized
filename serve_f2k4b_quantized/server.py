@@ -111,6 +111,16 @@ async def generate_images(request: ImageGenerationRequest):
 
     return ImageGenerationResponse(created=int(time.time()), data=data)
 
+@app.get("/health")
+async def health_check():
+    """Simple health check endpoint."""
+    return {
+        "status": "ok",
+        # Optional: return a bit of useful info about the running server
+        "profile": _cfg.get("model", {}).get("profile", "unknown"),
+        "device": _cfg.get("model", {}).get("device", "unknown")
+    }
+
 
 # ---------------------------------------------------------------------------
 # Entry point
