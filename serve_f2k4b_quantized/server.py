@@ -16,7 +16,8 @@ from pathlib import Path
 from typing import Any, Optional
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -61,6 +62,19 @@ class ImageGenerationResponse(BaseModel):
 
 app = FastAPI(title="serve_f2k4b_quantized", version="0.1.0")
 
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception):
+    logger.exception("Unhandled error on %s %s", request.method, request.url.path)
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": {
+                "message": str(exc),
+                "type": exc.__class__.__name__
+            }
+        }
+    )
+
 
 def _parse_size(size_str: str) -> tuple[int, int]:
     parts = size_str.lower().split("x")
@@ -81,6 +95,10 @@ async def generate_images(request: ImageGenerationRequest):
     import time
 
     global _pipeline, _cfg
+
+    logger.info("images/generations prompt_len=%d size=%s steps=%d n=%d fmt=%s",
+                req_id, len(request.prompt), request.size, request.num_inference_steps,
+                request.n, request.response_format)
 
     response_format = request.response_format or _cfg.get("api", {}).get(
         "default_response_format", "b64_json"
@@ -147,6 +165,12 @@ def main() -> None:
         default=None,
         help="Override the listening port (e.g., 9000)",
     )
+    parser.add_argument(
+        "--log-level",
+        type=str,
+        default="info",
+        help="Logging level: debug, info, warn, error",
+    )
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -165,6 +189,8 @@ def main() -> None:
         _cfg["server"]["host"] = args.host
     if args.port is not None:
         _cfg["server"]["port"] = args.port
+    if args.log_level is not None:
+        _cfg["server"]["log_level"] = args.log_level
 
     logger.info("Configuration loaded: %s", _cfg)
 
@@ -181,6 +207,7 @@ def main() -> None:
         app,
         host=_cfg["server"]["host"],
         port=_cfg["server"]["port"],
+        log_level=_["server"].get("log_level", "info")
     )
 
 if __name__ == "__main__":
