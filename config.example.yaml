@@ -4,8 +4,8 @@ server:
   static_dir: "./static"
 
 model:
-  # Available profiles: mixed-q8-int8
-  profile: "mixed-q8-int8"
+  # Available profiles: aydin99-int8, unsloth-gguf
+  profile: "aydin99-int8"
   # Set to "cpu" for CPU-only deployment; "cuda" for GPU.
   # The server will fall back to CPU automatically if CUDA is unavailable.
   device: "cuda"

@@ -3,6 +3,9 @@
 A minimal Python package that serves the **FLUX.2-klein-4B** image-generation
 model through an **OpenAI-compatible REST API** (FastAPI).
 
+> **GENERATIVE AI DISCLAIMER**: The code in this repository was mostly written by LLMs
+> (but with plenty of guidance from yours truly).
+
 It combines:
 * A **Q8_0 GGUF**-quantized Transformer (Unsloth) loaded via Diffusers.
 * An **Int8**-quantized Text Encoder (optimum-quanto).
@@ -142,6 +145,21 @@ IMAGES_OPENAI_API_KEY=dummy-key
 
 No changes to Open-WebUI's source code are required — it uses the standard
 OpenAI image generation API format.
+
+---
+
+## Manually querying the endpoint
+
+```console
+curl -s -X POST http://127.0.0.1:8000/v1/images/generations \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "A futuristic city skyline at sunset in a cyberpunk style",
+    "size": "1024x1024",
+    "num_inference_steps": 20,
+    "response_format": "b64_json"
+  }' | jq -r '.data[0].b64_json' | base64 --decode > generated_image.png
+```
 
 ---
 

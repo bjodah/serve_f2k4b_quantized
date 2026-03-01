@@ -28,8 +28,10 @@ serve-f2k4b = "serve_f2k4b_quantized.server:main"
 diffusers = { git = "https://github.com/huggingface/diffusers" }
 
 [[tool.uv.index]]
-name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
+name = "pytorch-cu128"
+# url = "https://download.pytorch.org/whl/nightly/cu129"  # XXX: CUDA version needs to match what's reported in nvidia-smi
+# name = "pytorch-cu129"
 explicit = true
 
 [build-system]
