@@ -6,12 +6,13 @@ model through an **OpenAI-compatible REST API** (FastAPI).
 > **GENERATIVE AI DISCLAIMER**: The code in this repository was mostly written by LLMs
 > (but with plenty of guidance from yours truly).
 
-It combines:
-* A **Q8_0 GGUF**-quantized Transformer (Unsloth) loaded via Diffusers.
-* An **Int8**-quantized Text Encoder (optimum-quanto).
+Currently the package supports two different "profiles" (quantizations):
+- [aydin99-int8](https://huggingface.co/aydin99/FLUX.2-klein-4B-int8/): **Int8**-quantized (optimum-quanto).
+- [unsloth-gguf](https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF):  **Q8_0 GGUF**-quantization from Unsloth loaded via Diffusers.
 
-This keeps peak VRAM usage well within the 24 GB budget of an RTX 3090, and
-degrades gracefully to CPU-only execution when no GPU is present.
+This keeps peak VRAM usage aruond 12-13 GB.
+
+See the [sample_images/](sample_images/) directory for comparisons.
 
 ---
 
@@ -105,7 +106,7 @@ server:
   static_dir: "./static"   # where URL-format images are saved
 
 model:
-  profile: "mixed-q8-int8"  # quantization profile
+  profile: "aydin99-int8"    # quantization profile
   device: "cuda"             # "cuda" or "cpu"
   compute_dtype: "bfloat16"  # "bfloat16" (GPU) or "float32" (CPU)
 
