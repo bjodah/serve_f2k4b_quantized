@@ -1,0 +1,33 @@
+# Python byte-code and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# uv / pip artifacts
+.venv/
+venv/
+uv.lock
+
+# Environment
+.env
+
+# Test cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated images / static
+static/
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*~
