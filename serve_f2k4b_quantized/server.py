@@ -207,7 +207,7 @@ def main() -> None:
         app,
         host=_cfg["server"]["host"],
         port=_cfg["server"]["port"],
-        log_level=_["server"].get("log_level", "info")
+        log_level=_cfg["server"].get("log_level", "info")
     )
 
 if __name__ == "__main__":
