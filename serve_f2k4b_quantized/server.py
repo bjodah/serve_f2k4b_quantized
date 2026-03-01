@@ -124,6 +124,19 @@ def main() -> None:
         metavar="PATH",
         help="Path to config YAML (default: use built-in defaults)",
     )
+    # Add new arguments for host and port
+    parser.add_argument(
+        "--host",
+        type=str,
+        default=None,
+        help="Override the listening address (e.g., 127.0.0.1)",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=None,
+        help="Override the listening port (e.g., 9000)",
+    )
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -136,6 +149,12 @@ def main() -> None:
 
     global _pipeline, _cfg
     _cfg = load_config(args.config)
+
+    # Apply command-line overrides if they were provided
+    if args.host is not None:
+        _cfg["server"]["host"] = args.host
+    if args.port is not None:
+        _cfg["server"]["port"] = args.port
 
     logger.info("Configuration loaded: %s", _cfg)
 
@@ -153,7 +172,6 @@ def main() -> None:
         host=_cfg["server"]["host"],
         port=_cfg["server"]["port"],
     )
-
 
 if __name__ == "__main__":
     main()

@@ -14,9 +14,10 @@ REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 
 CONFIG="${REPO_ROOT}/config.yaml"
 
-# Allow overriding the config path via the first argument
+# Shift out the --config arguments if they were parsed
 if [[ "${1:-}" == "--config" && -n "${2:-}" ]]; then
     CONFIG="$2"
+    shift 2
 fi
 
 if [[ ! -f "$CONFIG" ]]; then
@@ -30,4 +31,4 @@ fi
 export DIFFUSERS_GGUF_CUDA_KERNELS="${DIFFUSERS_GGUF_CUDA_KERNELS:-true}"
 
 echo "Starting serve_f2k4b_quantized with config: $CONFIG"
-uv run serve-f2k4b --config "$CONFIG"
+uv run serve-f2k4b --config "$CONFIG" "$@"

@@ -10,7 +10,7 @@ Currently the package supports two different "profiles" (quantizations):
 - [aydin99-int8](https://huggingface.co/aydin99/FLUX.2-klein-4B-int8/): **Int8**-quantized (optimum-quanto).
 - [unsloth-gguf](https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF):  **Q8_0 GGUF**-quantization from Unsloth loaded via Diffusers.
 
-This keeps peak VRAM usage aruond 12-13 GB.
+This keeps peak VRAM usage around 12-13 GB. This has been tested on a Debian 12 system with CUDA 12.8 (you might need to adapt `pyproject.toml` etc. to match your systems versions).
 
 See the [sample_images/](sample_images/) directory for comparisons.
 
